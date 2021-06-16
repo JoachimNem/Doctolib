@@ -19,6 +19,6 @@ class PatientRepositoryTest extends KernelTestCase
         $this->loadFixtures([PatientFixtures::class]);
         $patients = $repository->findAll();
 
-        $this->assertCount(5, $patients);
+        $this->assertCount(3, $patients);
     }
 }
