@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\PraticienRepository;
+use App\Repository\PatientRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=PraticienRepository::class)
+ * @ORM\Entity(repositoryClass=PatientRepository::class)
  */
-class Praticien
+class Patient
 {
     /**
      * @ORM\Id
@@ -35,19 +35,19 @@ class Praticien
     private $nom;
 
     /**
-     * @ORM\Column(type="string", length=50, nullable=true)
-     */
-    private $prenom;
-
-    /**
      * @ORM\Column(type="string", length=50)
      */
-    private $specialite;
+    private $prenom;
 
     /**
      * @ORM\Column(type="integer")
      */
     private $telephone;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $date_naissance;
 
     /**
      * @ORM\Column(type="string", length=25)
@@ -70,7 +70,7 @@ class Praticien
     private $adresse_ville;
 
     /**
-     * @ORM\OneToMany(targetEntity=Rdv::class, mappedBy="praticien", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Rdv::class, mappedBy="id_patient", orphanRemoval=true)
      */
     private $rdvs;
 
@@ -125,21 +125,9 @@ class Praticien
         return $this->prenom;
     }
 
-    public function setPrenom(?string $prenom): self
+    public function setPrenom(string $prenom): self
     {
         $this->prenom = $prenom;
-
-        return $this;
-    }
-
-    public function getSpecialite(): ?string
-    {
-        return $this->specialite;
-    }
-
-    public function setSpecialite(string $specialite): self
-    {
-        $this->specialite = $specialite;
 
         return $this;
     }
@@ -152,6 +140,18 @@ class Praticien
     public function setTelephone(int $telephone): self
     {
         $this->telephone = $telephone;
+
+        return $this;
+    }
+
+    public function getDateNaissance(): ?\DateTimeInterface
+    {
+        return $this->date_naissance;
+    }
+
+    public function setDateNaissance(\DateTimeInterface $date_naissance): self
+    {
+        $this->date_naissance = $date_naissance;
 
         return $this;
     }
@@ -216,7 +216,7 @@ class Praticien
     {
         if (!$this->rdvs->contains($rdv)) {
             $this->rdvs[] = $rdv;
-            $rdv->setPraticien($this);
+            $rdv->setPatient($this);
         }
 
         return $this;
@@ -226,8 +226,8 @@ class Praticien
     {
         if ($this->rdvs->removeElement($rdv)) {
             // set the owning side to null (unless already changed)
-            if ($rdv->getPraticien() === $this) {
-                $rdv->setPraticien(null);
+            if ($rdv->getPatient() === $this) {
+                $rdv->setPatient(null);
             }
         }
 
