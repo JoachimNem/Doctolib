@@ -35,8 +35,8 @@ class PatientTest extends KernelTestCase
         $patient->setNom("DU");
         $errors = $validator->validate($patient);
 
-        $this->assertCount(1, $errors, "Une erreur est attendue car mois de 3 chars");
-        $this->assertEquals(1, count($errors), "Une erreur est attendue car mois de 3 chars");
+        $this->assertCount(1, $errors, "Une erreur est attendue car moins de 3 chars");
+        $this->assertEquals(1, count($errors), "Une erreur est attendue car moins de 3 chars");
         $this->assertEquals("Your name must be at least 3 characters long", $errors[0]->getMessage());
     }
 
