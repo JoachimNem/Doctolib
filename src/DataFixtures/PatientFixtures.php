@@ -13,7 +13,7 @@ class PatientFixtures extends Fixture
 
         for ($i = 1; $i < 4; $i++) {
             $patient = new Patient();
-            $patient->setNom("DUPOND $i")
+            $patient->setNom("DUPONT $i")
                 ->setPrenom("A")
                 ->setTelephone(0606060606)
                 ->setEmail("dupond@dupond.fr")

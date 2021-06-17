@@ -50,7 +50,7 @@ class PraticienRepositoryTest extends KernelTestCase
         self::bootKernel();
         $repository = self::$container->get(PraticienRepository::class);
         $this->loadFixtures([PraticienFixtures::class]);
-        $tab["nom"] = "DuPOND 1";
+        $tab["nom"] = "DUPOND 1";
         $praticiens = $repository->findBy($tab);
 
         $this->assertCount(1, $praticiens);
