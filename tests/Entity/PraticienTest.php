@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Tests\Entity;
+
 use PHPUnit\Framework\TestCase;
 use App\Entity\Praticien;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
