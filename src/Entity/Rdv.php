@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\RdvRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * @ORM\Entity(repositoryClass=RdvRepository::class)
  */
@@ -34,7 +35,7 @@ class Rdv
     private $patient;
 
     /**
-     * @ORM\ManyToOne(targetEntity=praticien::class, inversedBy="rdvs")
+     * @ORM\ManyToOne(targetEntity=Praticien::class, inversedBy="rdvs")
      * @ORM\JoinColumn(nullable=false)
      */
     private $praticien;
