@@ -69,17 +69,17 @@ class Rdv
         return $this;
     }
 
-    // public function getPatient(): ?Patient
-    // {
-    //     return $this->patient;
-    // }
+    public function getPatient(): ?Patient
+    {
+        return $this->patient;
+    }
 
-    // public function setPatient(?Patient $patient): self
-    // {
-    //     $this->patient = $patient;
+    public function setPatient(?Patient $patient): self
+    {
+        $this->patient = $patient;
 
-    //     return $this;
-    // }
+        return $this;
+    }
 
     public function getPraticien(): ?praticien
     {
