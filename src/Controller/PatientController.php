@@ -3,11 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Patient;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
+use FOS\RestBundle\View\View;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Post;
+use FOS\RestBundle\Controller\Annotations\Delete;
 
-use FOS\RestBundle\View\View;
+
+use FOS\RestBundle\Controller\AbstractFOSRestController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class PatientController extends AbstractFOSRestController
 {
@@ -42,11 +45,24 @@ class PatientController extends AbstractFOSRestController
 
     /**
      * @Post("/patients")
+     * @ParamConverter("patient", converter="fos_rest.request_body")
      */
     public function create(Patient $patient)
     {
         $manager = $this->getDoctrine()->getManager();
         $manager->persist($patient);
+        $manager->flush();
+        return View::create(null, 200);
+    }
+
+    /** 
+     * @Delete("patients/{id}")
+     */
+    public function deleteByID($id)
+    {
+        $patient = $this->getDoctrine()->getRepository(Patient::class)->find($id);
+        $manager = $this->getDoctrine()->getManager();
+        $manager->remove($patient);
         $manager->flush();
         return View::create(null, 200);
     }
