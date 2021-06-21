@@ -78,10 +78,10 @@ class Praticien
      */
     private $adresse_ville;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Rdv::class, mappedBy="praticien", orphanRemoval=true)
-     */
-    private $rdvs;
+    // /**
+    //  * @ORM\OneToMany(targetEntity=Rdv::class, mappedBy="praticien", orphanRemoval=true)
+    //  */
+    // private $rdvs;
 
     public function __construct()
     {
@@ -213,33 +213,33 @@ class Praticien
         return $this;
     }
 
-    /**
-     * @return Collection|Rdv[]
-     */
-    public function getRdvs(): Collection
-    {
-        return $this->rdvs;
-    }
+    // /**
+    //  * @return Collection|Rdv[]
+    //  */
+    // public function getRdvs(): Collection
+    // {
+    //     return $this->rdvs;
+    // }
 
-    public function addRdv(Rdv $rdv): self
-    {
-        if (!$this->rdvs->contains($rdv)) {
-            $this->rdvs[] = $rdv;
-            $rdv->setPraticien($this);
-        }
+    // public function addRdv(Rdv $rdv): self
+    // {
+    //     if (!$this->rdvs->contains($rdv)) {
+    //         $this->rdvs[] = $rdv;
+    //         $rdv->setPraticien($this);
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
-    public function removeRdv(Rdv $rdv): self
-    {
-        if ($this->rdvs->removeElement($rdv)) {
-            // set the owning side to null (unless already changed)
-            if ($rdv->getPraticien() === $this) {
-                $rdv->setPraticien(null);
-            }
-        }
+    // public function removeRdv(Rdv $rdv): self
+    // {
+    //     if ($this->rdvs->removeElement($rdv)) {
+    //         // set the owning side to null (unless already changed)
+    //         if ($rdv->getPraticien() === $this) {
+    //             $rdv->setPraticien(null);
+    //         }
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 }
