@@ -3,11 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Praticien;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
+use FOS\RestBundle\View\View;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\POST;
-
-use FOS\RestBundle\View\View;
+use FOS\RestBundle\Controller\Annotations\Delete;
+use FOS\RestBundle\Controller\AbstractFOSRestController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 
 class PraticienController extends AbstractFOSRestController
@@ -32,6 +33,7 @@ class PraticienController extends AbstractFOSRestController
 
     /**
      * @Post("/praticiens")
+     * @ParamConverter("praticien", converter="fos_rest.request_body")
      */
     public function create(Praticien $praticien)
     {
@@ -40,4 +42,19 @@ class PraticienController extends AbstractFOSRestController
         $manager->flush();
         return View::create(null, 200);
     }
+
+    /**
+     * @Delete("supp/praticiens/{id}")
+     */
+    public function deleteByID($id)
+    {
+        $praticien = $this->getDoctrine()->getRepository(Praticien::class)->find($id);
+        $manager = $this->getDoctrine()->getManager();
+        $manager->remove($praticien);
+        $manager->flush();
+        return View::create(null, 200);
+    }
+
+    
+
 }
