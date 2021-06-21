@@ -37,11 +37,14 @@ class PatientController extends AbstractFOSRestController
     {
         return View::create($patient, 200, ["content-type" => "application/json"]);
     }
+    // Autre moyen:
     // public function getById($id)
     // {
     //     $patientTrouve = $this->getDoctrine()->getRepository(Patient::class)->find($id);
     //     return View::create($patientTrouve, 200);
     // }
+
+
 
     /**
      * @Post("/patients")

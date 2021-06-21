@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\DTO\PraticienDTO;
 use App\Entity\Praticien;
 use FOS\RestBundle\View\View;
+use App\Mapper\PraticienMapper;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\POST;
 use FOS\RestBundle\Controller\Annotations\Delete;
@@ -19,7 +21,13 @@ class PraticienController extends AbstractFOSRestController
     public function getAll()
     {
         $praticiens = $this->getDoctrine()->getRepository(Praticien::class)->findAll();
-        return View::create($praticiens, 200);
+        $praticienDTOs = [];
+        foreach ($praticiens as $praticien) {
+            $mapper = new PraticienMapper();
+            $praticienDTO = $mapper->convertPraticienEntityToPraticienDTO($praticien);
+            $praticienDTOs[] = $praticienDTO;
+        }
+        return View::create($praticiens, 200, ["content-type" => "application/json"]);
     }
 
     /**
@@ -54,7 +62,4 @@ class PraticienController extends AbstractFOSRestController
         $manager->flush();
         return View::create(null, 200);
     }
-
-    
-
 }

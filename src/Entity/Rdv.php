@@ -28,11 +28,11 @@ class Rdv
      */
     private $heure;
 
-    // /**
-    //  * @ORM\ManyToOne(targetEntity=Patient::class, inversedBy="rdvs")
-    //  * @ORM\JoinColumn(nullable=false)
-    //  */
-    // private $patient;
+    /**
+     * @ORM\ManyToOne(targetEntity=Patient::class, inversedBy="rdvs")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $patient;
 
     /**
      * @ORM\ManyToOne(targetEntity=Praticien::class, inversedBy="rdvs")

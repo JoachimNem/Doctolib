@@ -77,10 +77,10 @@ class Patient
      */
     private $adresse_ville;
 
-    // /**
-    //  * @ORM\OneToMany(targetEntity=Rdv::class, mappedBy="patient", orphanRemoval=true)
-    //  */
-    // private $rdvs;
+    /**
+     * @ORM\OneToMany(targetEntity=Rdv::class, mappedBy="patient", orphanRemoval=true)
+     */
+    private $rdvs;
 
     public function __construct()
     {
