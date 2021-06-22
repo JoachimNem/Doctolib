@@ -1,0 +1,102 @@
+openapi: 3.0.0
+info:
+  title: 'Swagger Petstore'
+  description: 'This is a sample Petstore server.  You can find'
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: 'Apache 2.0'
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+  version: 1.0.0
+paths:
+  /patients:
+    post:
+      tags:
+        - patient
+      summary: 'Add a new pet to the store'
+      operationId: create
+      requestBody:
+        $ref: '#/components/requestBodies/PatientDTO'
+      responses:
+        '201':
+          description: 'Patient created successfully'
+components:
+  schemas:
+    PatientDTO:
+      title: 'Le PatientDTO'
+      description: 'Le PatientDTO'
+      required:
+        - adresse_ville
+      properties:
+        email:
+          title: email
+          description: 'The Patient email'
+        mdp:
+          title: mdp
+          description: 'The Patient password'
+        nom:
+          title: nom
+          description: 'The Patient name'
+        prenom:
+          title: prenom
+          description: 'The Patient firstname'
+        telephone:
+          title: telephone
+          description: 'The Patient number phone'
+        date_naissance:
+          title: date_naissance
+          description: 'The Patient birthday'
+        adresse_num:
+          title: adresse_num
+          description: 'The Patient adress number'
+        adresse_rue:
+          title: adresse_rue
+          description: 'The Patient adress street'
+        adresse_cp:
+          title: adresse_cp
+          description: 'The Patient adress postal code'
+        adresse_ville:
+          title: adresse_ville
+          description: 'The Patient adress city'
+      type: object
+    PraticienDTO:
+      title: 'Le PraticienDTO'
+      description: 'Le PraticienDTO'
+      required:
+        - nom
+      properties:
+        nom:
+          title: nom
+          description: nom
+      type: object
+    RdvDTO:
+      title: 'Le RdvDTO'
+      description: 'Le RdvDTO'
+      required:
+        - praticienDTO
+      properties:
+        date:
+          title: date
+          description: 'The date of the rdv'
+        heure:
+          title: heure
+          description: 'The hour of the rdv'
+        praticienDTO:
+          $ref: '#/components/schemas/PraticienDTO'
+      type: object
+  requestBodies:
+    PatientDTO:
+      description: 'Patient object that needs to be added to the store'
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PatientDTO'
+    Rdv:
+      description: 'Rdv object that needs to be added to the store'
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RdvDTO'

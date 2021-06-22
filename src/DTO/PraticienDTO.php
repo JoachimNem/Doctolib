@@ -2,10 +2,25 @@
 
 namespace App\DTO;
 
+/**
+ *     @OA\Schema(
+ *     description="Le PraticienDTO",
+ *     title="Le PraticienDTO",
+ *     required={"nom"},
+          
+ * )
+ */
+
 class PraticienDTO
 {
 
     private $id;
+    /**
+     * @OA\Property(
+     *     description="nom",
+     *     title="nom"
+     * )
+     */
     private $nom;
     private $prenom;
     private $specialite;

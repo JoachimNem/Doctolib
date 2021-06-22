@@ -2,42 +2,108 @@
 
 namespace App\DTO;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use OpenApi\Annotations as OA;
+
+/**
+ *     @OA\Schema(
+ *     description="Le PatientDTO",
+ *     title="Le PatientDTO",
+ *     required={"email"}, 
+ *     required={"mdp"},
+ *     required={"adresse_num"},
+ *     required={"prenom"},
+ *     required={"telephone"},
+ *     required={"date_naissance"},
+ *     required={"adresse_num"},
+ *     required={"adresse_rue"},
+ *     required={"adresse_cp"},
+ *     required={"adresse_ville"},
+
+ * )
+ */
 
 class PatientDTO
 {
 
     private $id;
+    /**
+     * @OA\Property(
+     *     description="The Patient email",
+     *     title="email",
+     * )
+     */
     private $email;
+    /**
+     * @OA\Property(
+     *     description="The Patient password",
+     *     title="mdp",
+     * )
+     */
     private $mdp;
+    /**
+     * @OA\Property(
+     *     description="The Patient name",
+     *     title="nom",
+     * )
+     */
     private $nom;
+    /**
+     * @OA\Property(
+     *     description="The Patient firstname",
+     *     title="prenom",
+     * )
+     */
     private $prenom;
+    /**
+     * @OA\Property(
+     *     description="The Patient number phone",
+     *     title="telephone",
+     * )
+     */
     private $telephone;
+    /**
+     * @OA\Property(
+     *     description="The Patient birthday",
+     *     title="date_naissance",
+     * )
+     */
     private $date_naissance;
+    /**
+     * @OA\Property(
+     *     description="The Patient adress number",
+     *     title="adresse_num",
+     * )
+     */
     private $adresse_num;
+    /**
+     * @OA\Property(
+     *     description="The Patient adress street",
+     *     title="adresse_rue",
+     * )
+     */
     private $adresse_rue;
+    /**
+     * @OA\Property(
+     *     description="The Patient adress postal code",
+     *     title="adresse_cp",
+     * )
+     */
     private $adresse_cp;
+    /**
+     * @OA\Property(
+     *     description="The Patient adress city",
+     *     title="adresse_ville",
+     * )
+     */
     private $adresse_ville;
 
 
-    public function __construct()
-    {
-        $this->rdvs = new ArrayCollection();
-    }
-
-    /**
-     * Get the value of id
-     */
     public function getId()
     {
         return $this->id;
     }
 
-    /**
-     * Set the value of id
-     *
-     * @return  self
-     */
+
     public function setId($id)
     {
         $this->id = $id;
@@ -45,19 +111,11 @@ class PatientDTO
         return $this;
     }
 
-    /**
-     * Get the value of email
-     */
     public function getEmail()
     {
         return $this->email;
     }
 
-    /**
-     * Set the value of email
-     *
-     * @return  self
-     */
     public function setEmail($email)
     {
         $this->email = $email;
@@ -65,19 +123,11 @@ class PatientDTO
         return $this;
     }
 
-    /**
-     * Get the value of mdp
-     */
     public function getMdp()
     {
         return $this->mdp;
     }
 
-    /**
-     * Set the value of mdp
-     *
-     * @return  self
-     */
     public function setMdp($mdp)
     {
         $this->mdp = $mdp;
@@ -85,19 +135,11 @@ class PatientDTO
         return $this;
     }
 
-    /**
-     * Get the value of nom
-     */
     public function getNom()
     {
         return $this->nom;
     }
 
-    /**
-     * Set the value of nom
-     *
-     * @return  self
-     */
     public function setNom($nom)
     {
         $this->nom = $nom;
@@ -105,19 +147,11 @@ class PatientDTO
         return $this;
     }
 
-    /**
-     * Get the value of prenom
-     */
     public function getPrenom()
     {
         return $this->prenom;
     }
 
-    /**
-     * Set the value of prenom
-     *
-     * @return  self
-     */
     public function setPrenom($prenom)
     {
         $this->prenom = $prenom;
@@ -125,19 +159,12 @@ class PatientDTO
         return $this;
     }
 
-    /**
-     * Get the value of telephone
-     */
     public function getTelephone()
     {
         return $this->telephone;
     }
 
-    /**
-     * Set the value of telephone
-     *
-     * @return  self
-     */
+
     public function setTelephone($telephone)
     {
         $this->telephone = $telephone;
@@ -145,100 +172,70 @@ class PatientDTO
         return $this;
     }
 
-    /**
-     * Get the value of date_naissance
-     */
-    public function getDate_naissance()
+
+    public function getDateNaissance()
     {
         return $this->date_naissance;
     }
 
-    /**
-     * Set the value of date_naissance
-     *
-     * @return  self
-     */
-    public function setDate_naissance($date_naissance)
+
+    public function setDateNaissance($date_naissance)
     {
         $this->date_naissance = $date_naissance;
 
         return $this;
     }
 
-    /**
-     * Get the value of adresse_num
-     */
-    public function getAdresse_num()
+
+    public function getAdresseNum()
     {
         return $this->adresse_num;
     }
 
-    /**
-     * Set the value of adresse_num
-     *
-     * @return  self
-     */
-    public function setAdresse_num($adresse_num)
+
+    public function setAdresseNum($adresse_num)
     {
         $this->adresse_num = $adresse_num;
 
         return $this;
     }
 
-    /**
-     * Get the value of adresse_rue
-     */
-    public function getAdresse_rue()
+
+    public function getAdresseRue()
     {
         return $this->adresse_rue;
     }
 
-    /**
-     * Set the value of adresse_rue
-     *
-     * @return  self
-     */
-    public function setAdresse_rue($adresse_rue)
+
+    public function setAdresseRue($adresse_rue)
     {
         $this->adresse_rue = $adresse_rue;
 
         return $this;
     }
 
-    /**
-     * Get the value of adresse_cp
-     */
-    public function getAdresse_cp()
+
+    public function getAdresseCp()
     {
         return $this->adresse_cp;
     }
 
-    /**
-     * Set the value of adresse_cp
-     *
-     * @return  self
-     */
-    public function setAdresse_cp($adresse_cp)
+
+    public function setAdresseCp($adresse_cp)
     {
         $this->adresse_cp = $adresse_cp;
 
         return $this;
     }
 
-    /**
-     * Get the value of adresse_ville
-     */
-    public function getAdresse_ville()
+
+    public function getAdresseVille()
     {
         return $this->adresse_ville;
     }
 
-    /**
-     * Set the value of adresse_ville
-     *
-     * @return  self
-     */
-    public function setAdresse_ville($adresse_ville)
+
+    public function setAdresseVille($adresse_ville)
     {
         $this->adresse_ville = $adresse_ville;
 

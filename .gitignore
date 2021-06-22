@@ -10,7 +10,6 @@
 .env
 .env.test
 composer.lock
-composer.json
 symfony.lock
 ###< symfony/framework-bundle ###
 

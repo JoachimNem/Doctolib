@@ -7,7 +7,7 @@ use App\Mapper\PraticienMapper;
 use App\Repository\PraticienRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
-class PatientService
+class PraticienService
 {
 
     private $praticienRepository;
@@ -34,18 +34,24 @@ class PatientService
         return $praticienDTOs;
     }
 
-
-    public function save(PraticienDTO $patientDTO)
+    public function getById($id)
     {
+        $praticien = $this->praticienRepository->find($id);
+        return $praticien;
+    }
 
-        $selectedMedecin = $this->medecinRepository->find($patientDTO->getMedecinId());
-        if ($selectedMedecin == null) {
-            return false;
-        }
-        $patientToSave = (new PatientMapper)->convertPatientDTOToPatientEntity($patientDTO);
-        $patientToSave->setMedecin($selectedMedecin);
-        $this->entityManager->persist($patientToSave);
+
+    public function create(PraticienDTO $praticienDTO)
+    {
+        $praticienToSave = (new PraticienMapper)->convertPraticienDTOToPraticienEntity($praticienDTO);
+        $this->entityManager->persist($praticienToSave);
         $this->entityManager->flush();
-        return true;
+    }
+
+    public function deleteById($id)
+    {
+        $praticien = $this->praticienRepository->find($id);
+        $this->entityManager->remove($praticien);
+        $this->entityManager->flush();
     }
 }

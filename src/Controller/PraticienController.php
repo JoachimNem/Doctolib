@@ -3,11 +3,10 @@
 namespace App\Controller;
 
 use App\DTO\PraticienDTO;
-use App\Entity\Praticien;
 use FOS\RestBundle\View\View;
-use App\Mapper\PraticienMapper;
+use App\Service\PraticienService;
 use FOS\RestBundle\Controller\Annotations\Get;
-use FOS\RestBundle\Controller\Annotations\POST;
+use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\Annotations\Delete;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -20,7 +19,7 @@ class PraticienController extends AbstractFOSRestController
 
     public function __construct(PraticienService $praticienService)
     {
-        
+        $this->praticienService = $praticienService;
     }
 
     /**
@@ -28,14 +27,8 @@ class PraticienController extends AbstractFOSRestController
      */
     public function getAll()
     {
-        $praticiens = $this->getDoctrine()->getRepository(Praticien::class)->findAll();
-        $praticienDTOs = [];
-        foreach ($praticiens as $praticien) {
-            $mapper = new PraticienMapper();
-            $praticienDTO = $mapper->convertPraticienEntityToPraticienDTO($praticien);
-            $praticienDTOs[] = $praticienDTO;
-        }
-        return View::create($praticiens, 200, ["content-type" => "application/json"]);
+        $praticienDTOs = $this->praticienService->getAll();
+        return View::create($praticienDTOs, 200, ["content-type" => "application/json"]);
     }
 
     /**
@@ -43,31 +36,26 @@ class PraticienController extends AbstractFOSRestController
      */
     public function getById($id)
     {
-        $praticiens = $this->getDoctrine()->getRepository(Praticien::class)->find($id);
-        return View::create($praticiens, 200);
+        $praticien = $this->praticienService->getById($id);
+        return View::create($praticien, 200);
     }
 
     /**
      * @Post("/praticiens")
      * @ParamConverter("praticien", converter="fos_rest.request_body")
      */
-    public function create(Praticien $praticien)
+    public function create(PraticienDTO $praticienDTO)
     {
-        $manager = $this->getDoctrine()->getManager();
-        $manager->persist($praticien);
-        $manager->flush();
-        return View::create(null, 200);
+        $this->praticienService->create($praticienDTO);
+        return View::create(null, 201);
     }
 
     /**
      * @Delete("supp/praticiens/{id}")
      */
-    public function deleteByID($id)
+    public function deleteById($id)
     {
-        $praticien = $this->getDoctrine()->getRepository(Praticien::class)->find($id);
-        $manager = $this->getDoctrine()->getManager();
-        $manager->remove($praticien);
-        $manager->flush();
+        $this->praticienService->deleteById($id);
         return View::create(null, 200);
     }
 }
