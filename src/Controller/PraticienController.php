@@ -15,6 +15,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class PraticienController extends AbstractFOSRestController
 {
+
+    private $praticienService;
+
+    public function __construct(PraticienService $praticienService)
+    {
+        
+    }
+
     /**
      * @Get("/praticiens")
      */
