@@ -2,13 +2,14 @@
 
 namespace App\Controller;
 
-use App\Entity\Patient;
+use App\DTO\PatientDTO;
+use App\Mapper\PatientMapper;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Post;
+
+
 use FOS\RestBundle\Controller\Annotations\Delete;
-
-
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
@@ -21,8 +22,15 @@ class PatientController extends AbstractFOSRestController
      */
     public function getAll()
     {
-        $patient = $this->getDoctrine()->getRepository(Patient::class)->findAll();
-        return View::create($patient, 200, ["content-type" => "application/json"]);
+        $patients = $this->patientRepository->findAll();
+        $patients = $this->getDoctrine()->getRepository(Patient::class)->findAll();
+        $patientDTOs = [];
+        foreach ($patients as $patient) {
+            $mapper = new PatientMapper();
+            $patientDTO = $mapper->convertPatientEntityToPatientDTO($patient);
+            $patientDTOs[] = $patientDTO;
+        }
+        return View::create($patients, 200, ["content-type" => "application/json"]);
     }
 
     /**
@@ -33,7 +41,7 @@ class PatientController extends AbstractFOSRestController
      * @return void
      */
 
-    public function getPatientById(Patient $patient)
+    public function getPatientById(PatientDTO $patient)
     {
         return View::create($patient, 200, ["content-type" => "application/json"]);
     }
@@ -48,9 +56,9 @@ class PatientController extends AbstractFOSRestController
 
     /**
      * @Post("/patients")
-     * @ParamConverter("patient", converter="fos_rest.request_body")
+     * @ParamConverter("patientDTO", converter="fos_rest.request_body")
      */
-    public function create(Patient $patient)
+    public function create(PatientDTO $patient)
     {
         $manager = $this->getDoctrine()->getManager();
         $manager->persist($patient);
@@ -63,7 +71,7 @@ class PatientController extends AbstractFOSRestController
      */
     public function deleteByID($id)
     {
-        $patient = $this->getDoctrine()->getRepository(Patient::class)->find($id);
+        $patient = $this->getDoctrine()->getRepository(PatientDTO::class)->find($id);
         $manager = $this->getDoctrine()->getManager();
         $manager->remove($patient);
         $manager->flush();
