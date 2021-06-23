@@ -23,26 +23,8 @@ class PraticienController extends AbstractFOSRestController
     }
 
     /**
-     * @Get("/praticiens")
-     */
-    public function getAll()
-    {
-        $praticienDTOs = $this->praticienService->getAll();
-        return View::create($praticienDTOs, 200, ["content-type" => "application/json"]);
-    }
-
-    /**
-     * @Get("praticiens/{id}")
-     */
-    public function getById($id)
-    {
-        $praticien = $this->praticienService->getById($id);
-        return View::create($praticien, 200);
-    }
-
-    /**
-     * @Post("/praticiens")
-     * @ParamConverter("praticien", converter="fos_rest.request_body")
+     * @Post("/praticien")
+     * @ParamConverter("praticienDTO", converter="fos_rest.request_body")
      */
     public function create(PraticienDTO $praticienDTO)
     {
@@ -51,11 +33,54 @@ class PraticienController extends AbstractFOSRestController
     }
 
     /**
-     * @Delete("supp/praticiens/{id}")
+     * @Get("/praticiens/id/{id}")
+     */
+    public function getById($id)
+    {
+        $praticien = $this->praticienService->getById($id);
+        return View::create($praticien, 200, ["content-type" => "application/json"]);
+    }
+
+    /**
+     * @Delete("/supp/praticiens/{id}")
      */
     public function deleteById($id)
     {
         $this->praticienService->deleteById($id);
         return View::create(null, 200);
+    }
+
+    /**
+     * @Get("/praticiens/nom/{nom}")
+     */
+    public function getByNom($nom)
+    {
+        $praticien = $this->praticienService->getByNom($nom);
+        return View::create($praticien, 200, ["content-type" => "application/json"]);
+    }
+    /**
+     * @Get("/praticiens/ville/{ville}")
+     */
+    public function getByVille($ville)
+    {
+        $praticien = $this->praticienService->getByVille($ville);
+        return View::create($praticien, 200, ["content-type" => "application/json"]);
+    }
+    /**
+     * @Get("/praticiens/specialite/{specialite}")
+     */
+    public function getBySpecialite($specialite)
+    {
+        $praticien = $this->praticienService->getBySpecialite($specialite);
+        return View::create($praticien, 200, ["content-type" => "application/json"]);
+    }
+
+    /**
+     * @Get("/praticiens")
+     */
+    public function getAll()
+    {
+        $praticienDTOs = $this->praticienService->getAll();
+        return View::create($praticienDTOs, 200, ["content-type" => "application/json"]);
     }
 }

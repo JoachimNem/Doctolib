@@ -2,6 +2,8 @@
 
 namespace App\DTO;
 
+use OpenApi\Annotations as OA;
+
 /**
  *     @OA\Schema(
  *     description="Le PraticienDTO",
@@ -21,6 +23,8 @@ class PraticienDTO
      *     title="nom"
      * )
      */
+    private $email;
+    private $mdp;
     private $nom;
     private $prenom;
     private $specialite;
@@ -135,6 +139,30 @@ class PraticienDTO
     public function setAdresseVille(string $adresse_ville): self
     {
         $this->adresse_ville = $adresse_ville;
+
+        return $this;
+    }
+
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getMdp()
+    {
+        return $this->mdp;
+    }
+
+    public function setMdp($mdp)
+    {
+        $this->mdp = $mdp;
 
         return $this;
     }

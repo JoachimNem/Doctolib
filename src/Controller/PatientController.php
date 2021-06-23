@@ -70,4 +70,13 @@ class PatientController extends AbstractFOSRestController
         $this->patientService->deleteById($id);
         return View::create(null, 200);
     }
+
+    /**
+     * @Get("/patients/{id}/rdvs")
+     */
+    public function getRdvById($id)
+    {
+        $patientDTOs = $this->patientService->getRdvById($id);
+        return View::create($patientDTOs, 200, ["content-type" => "application/json"]);
+    }
 }

@@ -7,6 +7,8 @@ use App\Entity\Rdv;
 
 class RdvMapper
 {
+
+    // GET
     public function convertRdvEntityToRdvDTO(Rdv $rdv): RdvDTO
     {
         $praticienMapper = new PraticienMapper();
@@ -23,6 +25,7 @@ class RdvMapper
         return $rdvDTO;
     }
 
+    // POST DELETE
     public function convetRdvDTOToRdvEntity(RdvDTO $rdvDTO): Rdv
     {
         $praticienMapper = new PraticienMapper();

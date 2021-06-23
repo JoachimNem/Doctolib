@@ -54,4 +54,19 @@ class PatientService
         $this->entityManager->remove($patient);
         $this->entityManager->flush();
     }
+
+    public function getRdvById($id)
+    {
+        //         $patient = $this->patientRepository->find($id);
+        //         $rdvs = $patient->getRdvs();
+        //         $rdvsEncoded= $rdvs->json_encode($rdvs);
+
+        //         foreach ($rdvs as $rdvsEncoded) {
+
+        //             $mapper = new PatientMapper();
+        //             $praticienDTO = $mapper->convertPraticienEntityToPraticienDTO($praticien);
+        //             $praticienDTOs[] = $praticienDTO;
+        //         }
+        return;
+    }
 }
