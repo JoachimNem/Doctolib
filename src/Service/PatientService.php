@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\DTO\PatientDTO;
+use App\Mapper\RdvMapper;
 use App\Mapper\PatientMapper;
 use App\Repository\PatientRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -57,16 +58,15 @@ class PatientService
 
     public function getRdvById($id)
     {
-        //         $patient = $this->patientRepository->find($id);
-        //         $rdvs = $patient->getRdvs();
-        //         $rdvsEncoded= $rdvs->json_encode($rdvs);
+        $patient = $this->patientRepository->find($id);
+        $rdvs = $patient->getRdvs();
+        $rdvDTOs = [];
+        foreach ($rdvs as $rdv) {
 
-        //         foreach ($rdvs as $rdvsEncoded) {
-
-        //             $mapper = new PatientMapper();
-        //             $praticienDTO = $mapper->convertPraticienEntityToPraticienDTO($praticien);
-        //             $praticienDTOs[] = $praticienDTO;
-        //         }
-        return;
+            $mapper = new RdvMapper();
+            $rdvDTO = $mapper->convertRdvEntityToRdvDTO($rdv);
+            $rdvDTOs[] = $rdvDTO;
+        }
+        return $rdvDTOs;
     }
 }
